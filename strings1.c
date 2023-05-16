@@ -99,6 +99,8 @@ char *set_token(char *string, int index, int sec_index)
 char *_strtok(char *str, char *delim)
 {
 	static char *string;
+	char *buf_delim = malloc(sizeof(char) * (_strlen(delim) + 1));
+	char *token = NULL;
 	static int index, sec_index, i;
 
 	if (str == NULL)
@@ -110,7 +112,6 @@ char *_strtok(char *str, char *delim)
 			index = 0;
 			sec_index = 0;
 			return (NULL);
-
 		}
 	}
 	else

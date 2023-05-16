@@ -1,6 +1,5 @@
 #include "simple_shell.h"
 #include <unistd.h>
-
 /**
  * inter_mode - Function
  *
@@ -12,7 +11,6 @@
  */
 void inter_mode(char **line_ptr)
 {
-	char *string;
 
 	while (1)
 	{
