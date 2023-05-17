@@ -16,7 +16,7 @@ void inter_mode(char **line_ptr)
 	{
 		printf("$ ");
 		fflush(stdout);
-		if (_getline(line_ptr, stdin) == 0)
+		if (prompt(*line_ptr) == 1)
 			break;
 	}
 	printf("\n");

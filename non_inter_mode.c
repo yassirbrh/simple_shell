@@ -11,6 +11,5 @@
  */
 void non_inter_mode(char **line_ptr)
 {
-	_getline(line_ptr, stdin);
-	printf("%s", *line_ptr);
+	prompt(*line_ptr);
 }
