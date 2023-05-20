@@ -55,7 +55,7 @@ void _strcpy(char *str1, char *str2)
  */
 int _strcmp(char *str1, char *str2)
 {
-	 int i = 0;
+	int i = 0;
 
 	while (*(str1 + i) != '\0')
 	{
@@ -84,58 +84,5 @@ char *set_token(char *string, int index, int sec_index)
 	for (i = sec_index; i < index; i++)
 		token[i - sec_index] = string[i];
 	token[i - sec_index] = '\0';
-	return (token);
-}
-/**
- * _strtok - Function
- *
- * Deescripion: Split a string depending on a delimiter.
- *
- * @str: Pointer to the string.
- * @delim: The delimiter.
- *
- * Return: Part of the string depending of the delimiter.
- */
-char *_strtok(char *str, char *delim)
-{
-	static char *string;
-	char *buf_delim = malloc(sizeof(char) * (_strlen(delim) + 1));
-	char *token = NULL;
-	static int index, sec_index, i;
-
-	if (str == NULL)
-	{
-		if (string == NULL || *(string + index) == '\0')
-		{
-			free(string);
-			free(buf_delim);
-			index = 0;
-			sec_index = 0;
-			return (NULL);
-		}
-	}
-	else
-	{
-		string = malloc(sizeof(char) * (_strlen(str) + 1));
-		_strcpy(str, string);
-	}
-	while (*(string + index) != '\0')
-	{
-		if (*(string + index) == delim[0])
-		{
-			for (i = index; i < index + _strlen(delim); i++)
-				buf_delim[i - index] = string[i];
-			buf_delim[i - index] = '\0';
-			if (_strcmp(delim, buf_delim) == 0)
-			{
-				token = set_token(string, index, sec_index);
-				index += _strlen(delim);
-				sec_index = index;
-				return (token);
-			}
-		}
-		index++;
-	}
-	token = set_token(string, index, sec_index);
 	return (token);
 }

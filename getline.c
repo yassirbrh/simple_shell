@@ -1,7 +1,6 @@
 #include "simple_shell.h"
 #include <unistd.h>
 #include <stdlib.h>
-#define BUFFER_SIZE 2048
 /**
  * _getline - Function
  *
@@ -16,7 +15,6 @@ ssize_t _getline(char **line_ptr, FILE *stream)
 {
 	ssize_t bytes_read;
 
-	*line_ptr = malloc(BUFFER_SIZE * sizeof(char));
 	bytes_read = read(fileno(stream), *line_ptr, BUFFER_SIZE);
 	if (bytes_read == -1)
 	{

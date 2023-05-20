@@ -1,5 +1,6 @@
 #include "simple_shell.h"
 #include <unistd.h>
+#include <stdlib.h>
 /**
  * main - Entry point
  *
@@ -9,11 +10,9 @@
  */
 int main(void)
 {
-	char *line_ptr = NULL;
-
 	if (isatty(STDIN_FILENO))
-		inter_mode(&line_ptr);
+		inter_mode();
 	else
-		non_inter_mode(&line_ptr);
+		non_inter_mode();
 	return (0);
 }

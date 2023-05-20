@@ -3,64 +3,83 @@
 #include <stdlib.h>
 #include <sys/wait.h>
 /**
+ * execute_command - Function
+ *
+ * Description: Execute the command.
+ *
+ * @args: Pointer to the array of the strings that are parts of the command.
+ * @env: Pointer to the array of environment variables.
+ * @status: Pointer to the status variable.
+ *
+ * Return: No return because it's a void function.
+ */
+int execute_command(char **args, char **env, int *status)
+{
+	pid_t pid;
+
+	if (access(args[0], X_OK) == 0)
+	{
+		pid = fork();
+		if (pid < 0)
+		{
+			perror("fork");
+			return (1);
+		}
+		else if (pid == 0)
+		{
+			if (execve(args[0], args, env) == -1)
+			{
+				perror("./hsh");
+				exit(1);
+			}
+		}
+		else
+			wait(status);
+	}
+	else
+		perror("./hsh");
+	return (0);
+}
+/**
+ * free_arg - Function
+ *
+ * Description: Frees the arguments buffers.
+ *
+ * @args: Pointer to the array containing the arguments.
+ *
+ * Return: No return because it's a void function.
+ */
+void free_arg(char **args)
+{
+	int i = 0;
+
+	while (args[i] != NULL)
+	{
+		free(args[i]);
+		i++;
+	}
+	free(args);
+}
+/**
  * prompt - Function
  *
  * Description: The main actor of the shell program.
  *
- * @line_ptr: Pointer to the command line.
- *
  * Return: 0 (Sucess)
  *         1 (Exit)
  */
-int prompt(char *line_ptr)
+int prompt(void)
 {
-	char **env = environ;
-	char **args;
-	int argc = 0, i, status;
-	char *command;
-	pid_t pid;
+	char **args, **env = environ;
+	int status, ret_value;
+	char *line_ptr = malloc(sizeof(char) * BUFFER_SIZE);
 
 	if (_getline(&line_ptr, stdin) == 0)
 		return (1);
 	line_ptr = command_format(line_ptr);
-	command = _strtok(line_ptr, " ");
-	while (command != NULL)
-	{
-		argc++;
-		command = _strtok(NULL, " ");
-	}
-	args = malloc(sizeof(char *) * (argc + 1));
-	args[0] = _strtok(line_ptr, " ");
-	for (i = 1; i < argc; i++)
-		args[i] = _strtok(NULL, " ");
-	args[argc] = NULL;
-	i = 0;
-	pid = fork();
-	if (pid < 0)
-	{
-		perror("fork");
-		return (1);
-	}
-	else if (pid == 0)
-	{
-		if (execve(args[0], args, env) == -1)
-		{
-			perror("./hsh");
-			exit(1);
-		}
-	}
-	else
-		wait(&status);
-	/*
-	   printf("%d, ",_strlen(args[0]));
-	   while (i < _strlen(args[0]))
-	   {
-	   printf("%d ", args[0][i]);
-	   i++;
-	   }
-	   */
-	free(args);
-	free(command);
+	args = _strtok(line_ptr, " ");
+	ret_value = execute_command(args, env, &status);
 	free(line_ptr);
-	return (0);
+	free_arg(args);
+	return (ret_value);
 }
