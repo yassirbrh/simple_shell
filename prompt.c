@@ -58,6 +58,7 @@ void free_arg(char **args)
 		free(args[i]);
 		i++;
 	}
+	free(args[i]);
 	free(args);
 }
 /**
@@ -65,27 +66,42 @@ void free_arg(char **args)
  *
  * Description: The main actor of the shell program.
  *
+ * @my_pid: PID of the shell program.
+ *
  * Return: 0 (Sucess)
  *         1 (Exit)
  */
-int prompt(void)
+int prompt(pid_t my_pid)
 {
+	cmdtofunc commands[] = {
+		{NULL, NULL}
+	};
 	char **args, **env = environ;
-	int status, ret_value;
-	char *line_ptr = malloc(sizeof(char) * BUFFER_SIZE);
+	static int cmd_num;
+	int status, ret_value, i = 0, cmd_found = 0;
+	char *line_ptr = malloc(sizeof(char) * BUFFER_SIZE), *command;
 
+	(void)my_pid;
 	if (_getline(&line_ptr, stdin) == 0)
 		return (1);
-	line_ptr = command_format(line_ptr);
-	args = _strtok(line_ptr, " ");
-	/*add exit*/
-	/*while (args)*/
-	
-		if (_strcmp(args[0],"exit") == 0)
-			exit(1);
-		
-	ret_value = execute_command(args, env, &status);
+	command = command_format(line_ptr);
+	args = _strtok(command, " ");
+	if (_strcmp("exit", args[0]) == 0)
+		exit_shell(args, line_ptr, command);
+	while (commands[i].command_str != NULL)
+	{
+		if (_strcmp(commands[i].command_str, args[0]) == 0)
+		{
+			commands[i].f(args);
+			cmd_found = 1;
+		}
+		i++;
+	}
+	if (!cmd_found)
+		ret_value = execute_command(args, env, &status);
 	free(line_ptr);
+	free(command);
+	cmd_num++;
 	free_arg(args);
 	return (ret_value);
 }

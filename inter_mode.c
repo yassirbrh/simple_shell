@@ -10,11 +10,13 @@
  */
 void inter_mode(void)
 {
+	pid_t my_pid = getpid();
+
 	while (1)
 	{
 		printf("$ ");
 		fflush(stdout);
-		if (prompt() == 1)
+		if (prompt(my_pid) == 1)
 			break;
 	}
 	printf("\n");

@@ -10,5 +10,7 @@
  */
 void non_inter_mode(void)
 {
-	prompt();
+	pid_t my_pid = getpid();
+
+	prompt(my_pid);
 }

@@ -14,13 +14,18 @@ char *command_format(char *string)
 	int i = 0, j = 0;
 	char *str = malloc(sizeof(char) * _strlen(string) + 1);
 
-	while (string[i] != '\0')
+	while (string[i] != '\n')
 	{
 		if (string[i] == ' ' || string[i] == '\t')
 		{
 			str[j] = ' ';
 			while (string[i] == ' ' || string[i] == '\t')
 			{
+				i++;
+			}
+			if (j == 0)
+			{
+				str[j] = string[i];
 				i++;
 			}
 			i--;

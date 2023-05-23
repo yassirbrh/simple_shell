@@ -120,22 +120,19 @@ void extract_tokens(char *str, int str_len, char *delim, char **tokens)
  */
 char **_strtok(char *str, char *delim)
 {
-	static char *string;
+	char *string;
 	int str_len = _strlen(str);
 	int token_count;
 	char **tokens;
 
-	if (str != NULL)
-	{
-		if (string != NULL)
-			free(string);
-		string = malloc(sizeof(char) * (str_len + 1));
-		_strcpy(str, string);
-	}
-
+	if (str == NULL)
+		return (NULL);
+	string = malloc(sizeof(char) * (str_len + 1));
+	_strcpy(str, string);
 	token_count = count_tokens(string, str_len, delim);
 	tokens = malloc(sizeof(char *) * (token_count + 2));
 	extract_tokens(string, str_len, delim, tokens);
+	free(string);
 
 	return (tokens);
 }
