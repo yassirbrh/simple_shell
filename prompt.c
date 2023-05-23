@@ -80,10 +80,10 @@ int prompt(void)
 	args = _strtok(line_ptr, " ");
 	/*add exit*/
 	/*while (args)*/
-	
-		if (_strcmp(args[0],"exit") == 0)
+
+		if (_strcmp(args[0], "exit") == 0)
 			exit(1);
-		
+
 	ret_value = execute_command(args, env, &status);
 	free(line_ptr);
 	free_arg(args);
