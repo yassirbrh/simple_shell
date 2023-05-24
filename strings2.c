@@ -11,18 +11,21 @@
  */
 char *command_format(char *string)
 {
-	int i = 0, j = 0;
-	char *str = malloc(sizeof(char) * _strlen(string) + 1);
+	int i = 0, j = 0, str_len = _strlen(string);
+	char *str = malloc(sizeof(char) * (str_len + 1));
 
+	if (str == NULL)
+	{
+		/*free(str);*/
+		return (NULL);
+	}
 	while (string[i] != '\n')
 	{
 		if (string[i] == ' ' || string[i] == '\t')
 		{
 			str[j] = ' ';
 			while (string[i] == ' ' || string[i] == '\t')
-			{
 				i++;
-			}
 			if (j == 0)
 			{
 				str[j] = string[i];

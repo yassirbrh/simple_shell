@@ -81,6 +81,11 @@ char *set_token(char *string, int index, int sec_index)
 	int i;
 	char *token = malloc(sizeof(char) * (index - sec_index + 1));
 
+	if (token == NULL)
+	{
+		free(token);
+		return (NULL);
+	}
 	for (i = sec_index; i < index; i++)
 		token[i - sec_index] = string[i];
 	token[i - sec_index] = '\0';

@@ -104,6 +104,12 @@ int prompt(pid_t my_pid)
 	int status, ret_value, i = 0, cmd_found = 0;
 	char *line_ptr = malloc(sizeof(char) * BUFFER_SIZE), *command;
 
+	if (line_ptr == NULL)
+	{
+		free(line_ptr);
+		return (1);
+	}
+	line_ptr[0] = '\0';
 	(void)my_pid;
 	if (_getline(&line_ptr, &n, stdin) == 0)
 		return (1);

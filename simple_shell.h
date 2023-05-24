@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <unistd.h>
+#include <errno.h>
 #define BUFFER_SIZE 2048
 /*
  * The environ is an array of all environment variables of OS.

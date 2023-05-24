@@ -128,9 +128,20 @@ char **_strtok(char *str, char *delim)
 	if (str == NULL)
 		return (NULL);
 	string = malloc(sizeof(char) * (str_len + 1));
+	if (string == NULL)
+	{
+		free(string);
+		return (NULL);
+	}
 	_strcpy(str, string);
 	token_count = count_tokens(string, str_len, delim);
 	tokens = malloc(sizeof(char *) * (token_count + 2));
+	if (tokens == NULL)
+	{
+		free(string);
+		free(tokens);
+		return (NULL);
+	}
 	extract_tokens(string, str_len, delim, tokens);
 	free(string);
 
