@@ -111,7 +111,7 @@ int prompt(pid_t my_pid)
 	}
 	line_ptr[0] = '\0';
 	(void)my_pid;
-	if (_getline(&line_ptr, &n, stdin) == 0)
+	if (_getline(&line_ptr, &n, STDIN_FILENO) == 0)
 		return (1);
 	command = command_format(line_ptr);
 	args = _strtok(command, " ");

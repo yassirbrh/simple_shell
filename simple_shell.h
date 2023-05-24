@@ -30,7 +30,7 @@ int _strlen(char *str);
 void _strcpy(char *str1, char *str2);
 int _strcmp(char *str1, char *str2);
 void _putstr(char *str);
-ssize_t _getline(char **line_ptr, size_t *n, FILE *stream);
+ssize_t _getline(char **line_ptr, size_t *n, int stream);
 void inter_mode(void);
 void non_inter_mode(void);
 char *set_token(char *string, int index, int sec_index);
