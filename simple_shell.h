@@ -36,5 +36,6 @@ char **_strtok(char *str, char *delim);
 int prompt(pid_t my_pid);
 char *command_format(char *string);
 void free_arg(char **args);
-void exit_shell(char **args, char *line_ptr, char *command);
+int _atoi_exit(char *str);
+void exit_shell(char **args, char *line_ptr, char *command, int cmd_num);
 #endif /* SHELL_MAIN */

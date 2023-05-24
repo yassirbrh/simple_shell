@@ -88,7 +88,10 @@ int prompt(pid_t my_pid)
 	command = command_format(line_ptr);
 	args = _strtok(command, " ");
 	if (_strcmp("exit", args[0]) == 0)
-		exit_shell(args, line_ptr, command);
+	{
+		exit_shell(args, line_ptr, command, cmd_num);
+		cmd_found = 1;
+	}
 	while (commands[i].command_str != NULL)
 	{
 		if (_strcmp(commands[i].command_str, args[0]) == 0)

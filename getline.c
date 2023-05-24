@@ -7,6 +7,7 @@
  * Description: read a line from the user input.
  *
  * @line_ptr: Pointer to the string that will contain the readed line.
+ * @n: Pointer to the size of buffer.
  * @stream: Pointer to the filestream (in our case input stream).
  *
  * Return: the length of the string readed.
