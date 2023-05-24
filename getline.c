@@ -11,11 +11,11 @@
  *
  * Return: the length of the string readed.
  */
-ssize_t _getline(char **line_ptr, FILE *stream)
+ssize_t _getline(char **line_ptr, size_t *n, FILE *stream)
 {
 	ssize_t bytes_read;
 
-	bytes_read = read(fileno(stream), *line_ptr, BUFFER_SIZE);
+	bytes_read = read(fileno(stream), *line_ptr, *n);
 	if (bytes_read == -1)
 	{
 		perror("read");

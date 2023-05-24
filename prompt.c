@@ -78,11 +78,12 @@ int prompt(pid_t my_pid)
 	};
 	char **args, **env = environ;
 	static int cmd_num;
+	size_t n = BUFFER_SIZE;
 	int status, ret_value, i = 0, cmd_found = 0;
 	char *line_ptr = malloc(sizeof(char) * BUFFER_SIZE), *command;
 
 	(void)my_pid;
-	if (_getline(&line_ptr, stdin) == 0)
+	if (_getline(&line_ptr, &n, stdin) == 0)
 		return (1);
 	command = command_format(line_ptr);
 	args = _strtok(command, " ");
