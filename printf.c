@@ -1,4 +1,5 @@
 #include "simple_shell.h"
+
 /**
  * _putstr - Function
  *
