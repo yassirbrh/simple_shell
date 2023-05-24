@@ -30,7 +30,7 @@ int execute_command(char **args, char **env, int *status)
 			if (execve(args[0], args, env) == -1)
 			{
 				perror("./hsh");
-				exit(1);
+				exit(127);
 			}
 		}
 		else
