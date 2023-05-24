@@ -4,11 +4,12 @@
  *
  * Description: Prints all the environment variables.
  *
+ * @args: Pointer to the array of arguments.
  * @env: Pointer to the array of environment variables.
  *
  * Return: No return because it's a void function.
  */
-void printenv(char **args,char **env)
+void printenv(char **args, char **env)
 {
 	int i = 0;
 
