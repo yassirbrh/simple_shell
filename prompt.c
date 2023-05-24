@@ -41,6 +41,28 @@ int execute_command(char **args, char **env, int *status)
 	return (0);
 }
 /**
+ * builtin_cmd - Function
+ *
+ * Description: Execute the builtin commands.
+ *
+ * @args: Pointer to the array containing the arguments.
+ * @env: Pointer to the array of environment variables.
+ *
+ * Return: 0 if the command not found.
+ *         1 if the command is found.
+ */
+int builtin_cmd(char **args, char **env)
+{
+	int cmd_found = 0;
+
+	if (_strcmp("env", args[0]) == 0)
+	{
+		printenv(args, env);
+		cmd_found = 1;
+	}
+	return (cmd_found);
+}
+/**
  * free_arg - Function
  *
  * Description: Frees the arguments buffers.
@@ -88,10 +110,8 @@ int prompt(pid_t my_pid)
 	command = command_format(line_ptr);
 	args = _strtok(command, " ");
 	if (_strcmp("exit", args[0]) == 0)
-	{
 		exit_shell(args, line_ptr, command, cmd_num);
-		cmd_found = 1;
-	}
+	cmd_found = builtin_cmd(args, env);
 	while (commands[i].command_str != NULL)
 	{
 		if (_strcmp(commands[i].command_str, args[0]) == 0)

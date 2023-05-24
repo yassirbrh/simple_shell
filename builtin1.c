@@ -1,6 +1,5 @@
 #include "simple_shell.h"
 #include <stdlib.h>
-#include <stdio.h>
 /**
  * exit_shell - Function
  *
@@ -17,12 +16,18 @@ void exit_shell(char **args, char *line_ptr, char *command, int cmd_num)
 {
 	int i;
 
+	(void)cmd_num;
 	if (args[1] == NULL)
 		i = 0;
 	else
 		i = _atoi_exit(args[1]);
 	if (i == -1)
-		printf("./hsh: %d: exit: Illegal number: %s\n", cmd_num + 1, args[1]);
+	{
+		_putstr("./hsh: ");
+		_putstr(": exit: Illegal number: ");
+		_putstr(args[1]);
+		_putstr("\n");
+	}
 	else
 	{
 		free_arg(args);

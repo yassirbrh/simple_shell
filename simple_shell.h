@@ -28,6 +28,7 @@ typedef struct cmdtofunc
 int _strlen(char *str);
 void _strcpy(char *str1, char *str2);
 int _strcmp(char *str1, char *str2);
+void _putstr(char *str);
 ssize_t _getline(char **line_ptr, size_t *n, FILE *stream);
 void inter_mode(void);
 void non_inter_mode(void);
@@ -37,5 +38,6 @@ int prompt(pid_t my_pid);
 char *command_format(char *string);
 void free_arg(char **args);
 int _atoi_exit(char *str);
+void printenv(char **args, char **env);
 void exit_shell(char **args, char *line_ptr, char *command, int cmd_num);
 #endif /* SHELL_MAIN */

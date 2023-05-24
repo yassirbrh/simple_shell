@@ -14,10 +14,10 @@ void inter_mode(void)
 
 	while (1)
 	{
-		printf("$ ");
+		_putstr("$ ");
 		fflush(stdout);
 		if (prompt(my_pid) == 1)
 			break;
 	}
-	printf("\n");
+	_putstr("\n");
 }
