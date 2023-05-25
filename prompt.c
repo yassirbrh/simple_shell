@@ -109,7 +109,7 @@ int prompt(pid_t my_pid)
 		free(line_ptr);
 		return (1);
 	}
-	line_ptr[0] = '\0';
+	initialize_string(line_ptr, BUFFER_SIZE);
 	(void)my_pid;
 	if (_getline(&line_ptr, &n, STDIN_FILENO) == 0)
 		return (1);

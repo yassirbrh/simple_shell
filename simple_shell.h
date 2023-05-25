@@ -27,6 +27,7 @@ typedef struct cmdtofunc
  * String functions used.
  */
 int _strlen(char *str);
+void initialize_string(char *str, int str_len);
 void _strcpy(char *str1, char *str2);
 int _strcmp(char *str1, char *str2);
 void _putstr(char *str);

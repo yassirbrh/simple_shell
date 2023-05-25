@@ -39,11 +39,6 @@ char *command_format(char *string)
 		j++;
 	}
 	str[j] = '\0';
-	if (str[j - 1] == '\n')
-	{
-		str[j - 1] = '\0';
-		j--;
-	}
 	if (str[j - 1] == ' ')
 	{
 		str[j - 1] = '\0';
