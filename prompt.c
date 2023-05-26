@@ -95,13 +95,10 @@ void free_arg(char **args)
  */
 int prompt(pid_t my_pid)
 {
-	cmdtofunc commands[] = {
-		{NULL, NULL}
-	};
 	char **args, **env = environ;
 	static int cmd_num;
 	size_t n = BUFFER_SIZE;
-	int status, ret_value, i = 0, cmd_found = 0;
+	int status, ret_value = 0, cmd_found = 0;
 	char *line_ptr = malloc(sizeof(char) * BUFFER_SIZE), *command;
 
 	if (line_ptr == NULL)
@@ -113,25 +110,26 @@ int prompt(pid_t my_pid)
 	(void)my_pid;
 	if (_getline(&line_ptr, &n, STDIN_FILENO) == 0)
 		return (1);
-	command = command_format(line_ptr);
-	args = _strtok(command, " ");
-	if (_strcmp("exit", args[0]) == 0)
-		exit_shell(args, line_ptr, command, cmd_num);
-	cmd_found = builtin_cmd(args, env);
-	while (commands[i].command_str != NULL)
+	if (isStringEmpty(line_ptr))
 	{
-		if (_strcmp(commands[i].command_str, args[0]) == 0)
-		{
-			commands[i].f(args);
-			cmd_found = 1;
-		}
-		i++;
+		free(line_ptr);
+		return (0);
 	}
-	if (!cmd_found)
-		ret_value = execute_command(args, env, &status);
-	free(line_ptr);
-	free(command);
-	cmd_num++;
-	free_arg(args);
+	if (isatty(STDIN_FILENO))
+	{
+		command = command_format(line_ptr);
+		args = _strtok(command, " ");
+		if (_strcmp("exit", args[0]) == 0)
+			exit_shell(args, line_ptr, command, cmd_num);
+		cmd_found = builtin_cmd(args, env);
+		if (!cmd_found)
+			ret_value = execute_command(args, env, &status);
+		free(line_ptr);
+		free(command);
+		cmd_num++;
+		free_arg(args);
+	}
+	else
+		non_inter(line_ptr, env);
 	return (ret_value);
 }

@@ -1,6 +1,29 @@
 #include <stdlib.h>
 #include "simple_shell.h"
 /**
+ * isStringEmpty - Function
+ *
+ * Description: Check if a string is empty.
+ *
+ * @str: Pointer to the string.
+ *
+ * Return: 1 (empty)
+ *         0 (not empty)
+ */
+int isStringEmpty(char *str)
+{
+	if (str == NULL)
+		return (1);
+
+	while (*str != '\0')
+	{
+		if (*str != ' ' && *str != '\t' && *str != '\n')
+			return (0);
+		str++;
+	}
+	return (1);
+}
+/**
  * command_format - Function
  *
  * Description: Format the command to make it runnable.
@@ -15,11 +38,8 @@ char *command_format(char *string)
 	char *str = malloc(sizeof(char) * (str_len + 1));
 
 	if (str == NULL)
-	{
-		/*free(str);*/
 		return (NULL);
-	}
-	while (string[i] != '\n')
+	while (string[i] != '\n' && string[i] != '\0')
 	{
 		if (string[i] == ' ' || string[i] == '\t')
 		{
