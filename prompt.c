@@ -118,7 +118,7 @@ int prompt(pid_t my_pid)
 		args = _strtok(command, " ");
 		if (_strcmp("exit", args[0]) == 0)
 		{
-			exit_shell(args, line_ptr, command, cmd_num);
+			exit_shell(args, line_ptr, command, cmd_num, &status);
 			cmd_found = 1;
 		}
 		else

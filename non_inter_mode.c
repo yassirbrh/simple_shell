@@ -14,8 +14,8 @@
 void non_inter(char *line_ptr, char **env)
 {
 	char **commands = _strtok(line_ptr, "\n"), **args;
-	int i = 0, cmd_found = 0, status;
-	static int cmd_num;
+	int i = 0, cmd_found = 0;
+	static int cmd_num, status;
 	char *command;
 
 	while (commands[i] != NULL)
@@ -35,7 +35,7 @@ void non_inter(char *line_ptr, char **env)
 		if (_strcmp("exit", args[0]) == 0)
 		{
 			free_arg(commands);
-			exit_shell(args, line_ptr, command, cmd_num);
+			exit_shell(args, line_ptr, command, cmd_num, &status);
 		}
 		cmd_found = builtin_cmd(args, env);
 		if (!cmd_found)

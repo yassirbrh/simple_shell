@@ -12,12 +12,12 @@
  *
  * Return: No return because it's a void function.
  */
-void exit_shell(char **args, char *line_ptr, char *command, int cmd_num)
+void exit_shell(char **args, char *line_ptr, char *command, int cmd_n, int *s)
 {
-	int i, cmd = cmd_num + 1;
+	int i, cmd = cmd_n + 1;
 
 	if (args[1] == NULL)
-		i = 0;
+		i = *s;
 	else
 		i = _atoi_exit(args[1]);
 	if (i < 0)

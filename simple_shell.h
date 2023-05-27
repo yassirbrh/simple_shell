@@ -45,5 +45,5 @@ char *command_format(char *string);
 void free_arg(char **args);
 int _atoi_exit(char *str);
 void printenv(char **args, char **env);
-void exit_shell(char **args, char *line_ptr, char *command, int cmd_num);
+void exit_shell(char **args, char *line_ptr, char *command, int cmd_n, int *s);
 #endif /* SHELL_MAIN */
