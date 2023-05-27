@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <errno.h>
-#define BUFFER_SIZE 2048
+#define BUFFER_SIZE 8192
 /*
  * The environ is an array of all environment variables of OS.
  */
