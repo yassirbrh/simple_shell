@@ -32,5 +32,5 @@ int _atoi_exit(char *str)
 		i++;
 	}
 
-	return ((sign * result) % 256);
+	return (sign * result);
 }

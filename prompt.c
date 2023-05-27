@@ -96,16 +96,13 @@ void free_arg(char **args)
 int prompt(pid_t my_pid)
 {
 	char **args, **env = environ;
-	static int cmd_num;
+	static int cmd_num, status;
 	size_t n = BUFFER_SIZE;
-	int status, ret_value = 0, cmd_found = 0;
+	int ret_value = 0, cmd_found = 0;
 	char *line_ptr = malloc(sizeof(char) * BUFFER_SIZE), *command;
 
 	if (line_ptr == NULL)
-	{
-		free(line_ptr);
 		return (1);
-	}
 	initialize_string(line_ptr, BUFFER_SIZE);
 	(void)my_pid;
 	if (_getline(&line_ptr, &n, STDIN_FILENO) == 0)
@@ -120,8 +117,12 @@ int prompt(pid_t my_pid)
 		command = command_format(line_ptr);
 		args = _strtok(command, " ");
 		if (_strcmp("exit", args[0]) == 0)
+		{
 			exit_shell(args, line_ptr, command, cmd_num);
-		cmd_found = builtin_cmd(args, env);
+			cmd_found = 1;
+		}
+		else
+			cmd_found = builtin_cmd(args, env);
 		if (!cmd_found)
 			ret_value = execute_command(args, env, &status);
 		free(line_ptr);

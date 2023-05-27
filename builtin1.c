@@ -14,25 +14,19 @@
  */
 void exit_shell(char **args, char *line_ptr, char *command, int cmd_num)
 {
-	int i;
+	int i, cmd = cmd_num + 1;
 
-	(void)cmd_num;
 	if (args[1] == NULL)
 		i = 0;
 	else
 		i = _atoi_exit(args[1]);
-	if (i == -1)
-	{
-		_putstr("./hsh: ");
-		_putstr(": exit: Illegal number: ");
-		_putstr(args[1]);
-		_putstr("\n");
-	}
+	if (i < 0)
+		fprintf(stderr, "./hsh: %d: exit: Illegal number: %s\n", cmd, args[1]);
 	else
 	{
 		free_arg(args);
 		free(line_ptr);
 		free(command);
-		exit(i);
+		exit(i % 256);
 	}
 }
